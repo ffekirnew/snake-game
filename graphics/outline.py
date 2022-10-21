@@ -4,6 +4,9 @@ ALIGNMENT = 'Center'
 FONT = ('Courier', 20, 'normal')
 
 class Outline(Turtle):
+	'''
+	outlines the borders of the game interface
+	'''
 	def __init__(self):
 		super().__init__()
 		self.color('white')

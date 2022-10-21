@@ -9,31 +9,31 @@ from graphics.outline import Outline
 from graphics.scoreboard import ScoreBoard
 from graphics.title import Title
 
+
+'''
+initialize the screen
+'''
 screen = Screen()
 screen.tracer(0) 
 screen.setup(width= 650, height=700)
 screen.bgcolor('black')
-screen.title('The Snake Game!')
+screen.title('Super Snake')
 
-screen.update()
-
-canvas = screen.getcanvas()
-button_clicked = False
-def button_action():
-    global button_clicked
-    button_clicked = not button_clicked
-    pause_button.config(text = "Continue" if (button_clicked == True) else "Pause")
-pause_button = Button(canvas.master, text="Pause", command=button_action)
-pause_button.pack()
-
-snake = Snake()
-food = Food()
-score_board = ScoreBoard(screen.textinput("Player:", "Enter your name here."))
+'''
+initialize and create game objects, start playing
+'''
 title = Title()
 outline = Outline()
+snake = Snake()
+food = Food()
+screen.update()
+score_board = ScoreBoard(screen.textinput("Player:", "Enter your name here."))
 
+'''
+command the screen to listen and set some keys for it to listen to
+'''
 screen.listen()
-screen.onkey(key='space', fun=button_action)
+screen.onkey(key='space', fun=score_board.button_clicked)
 screen.onkey(key='Up', fun=snake.up)
 screen.onkey(key='Down', fun=snake.down)
 screen.onkey(key='Left', fun=snake.left)
@@ -57,15 +57,15 @@ while game_is_on:
             snake.restart()
 
     if snake.out_of_picture():
-        score_board.reset()
+        score_board.reset() 
         snake.restart()
 
-    if button_clicked:
+    if score_board.is_clicked():
         snake.stop()
-        score_board.display_all_scores()
+        score_board.display_high_scores()
     else:
         snake.move()
-        score_board.remove_all_scores()
+        score_board.remove_high_scores()
         
     
 screen.exitonclick()
