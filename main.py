@@ -9,13 +9,12 @@ from graphics.outline import Outline
 from graphics.scoreboard import ScoreBoard
 from graphics.title import Title
 
-
 '''
 initialize the screen
 '''
 screen = Screen()
 screen.tracer(0) 
-screen.setup(width= 650, height=700)
+screen.setup(width=650, height=700)
 screen.bgcolor('black')
 screen.title('Super Snake')
 
@@ -45,7 +44,7 @@ while game_is_on:
     screen.update()
     time.sleep(0.05)
 
-    #detect collision with the food
+    # detect collision with the food
     if snake.head.distance(food) < 15:
         food.random_generate()
         score_board.update_score()
